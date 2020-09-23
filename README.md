@@ -24,7 +24,7 @@ public enum Response
 public interface ITaskRepository
 {
     (Response response, int taskId) Create(TaskCreateDTO task);
-    IQueryable<TaskListDTO> Read(bool includeRemoved = false);
+    ICollection<TaskListDTO> Read(bool includeRemoved = false);
     TaskDetailsDTO Read(int taskId);
     Response Update(TaskUpdateDTO task);
     Response Delete(int taskId);
@@ -33,7 +33,7 @@ public interface ITaskRepository
 public interface ITagRepository
 {
     (Response response, int taskId) Create(TagCreateDTO tag);
-    IQueryable<TagDTO> Read();
+    ICollection<TagDTO> Read();
     TagDTO Read(int tagId);
     Response Update(TagUpdateDTO tag);
     Response Delete(int tagId, bool force = false);
@@ -66,12 +66,6 @@ with the following rules:
 1. Tags which are in use may only be deleted using the `force`.
 1. Trying to delete a tag in use without the `force` should return `Conflict`.
 1. Trying to create a tag which exists already should return `Conflict`.
-
-
-
-
-
-
 
 ## Software Engineering
 
