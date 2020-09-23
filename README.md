@@ -42,30 +42,30 @@ public interface ITagRepository
 
 with the following rules:
 
-#### General
+#### 1. General
 
-- Trying to updated or delete a non-existing entity should return `NotFound`.
-- `CUD` should return a proper `Response`.
-- Your are not allowed to write `throw new ...` - use the `Response` instead.
-- Your code must use an in-memory database and/or mocks for testing.
-- If a task or tag is not found, return `null`.
+1. Trying to updated or delete a non-existing entity should return `NotFound`.
+1. `CUD` should return a proper `Response`.
+1. Your are not allowed to write `throw new ...` - use the `Response` instead.
+1. Your code must use an in-memory database and/or mocks for testing.
+1. If a task or tag is not found, return `null`.
 
-#### Task Repository
+#### 2. Task Repository
 
-- Only tasks which have the state `New` can be deleted from the database.
-- Deleting a task which is `Active` should set its state to `Removed`.
-- Deleting a task which is `Resolved`, `Closed`, or `Removed` should return `Conflict`.
-- Creating a task will set its state to `New`.
-- Create/update task must allow for editing tags.
-- Assigning a user which does not exist should return `Conflict`.
-- TaskRepository may *not* reference *TagRepository*.
-- Create/update should allow adding/removing a user - and return `BadRequest` if the user does not exist.
+1. Only tasks which have the state `New` can be deleted from the database.
+1. Deleting a task which is `Active` should set its state to `Removed`.
+1. Deleting a task which is `Resolved`, `Closed`, or `Removed` should return `Conflict`.
+1. Creating a task will set its state to `New`.
+1. Create/update task must allow for editing tags.
+1. Assigning a user which does not exist should return `Conflict`.
+1. TaskRepository may *not* reference *TagRepository*.
+1. Create/update should allow adding/removing a user - and return `BadRequest` if the user does not exist.
 
-#### Tag Repository
+#### 3. Tag Repository
 
-- Tags which are in use may only be deleted using the `force`.
-- Trying to delete a tag in use without the `force` should return `Conflict`.
-- Trying to create a tag which exists already should return `Conflict`.
+1. Tags which are in use may only be deleted using the `force`.
+1. Trying to delete a tag in use without the `force` should return `Conflict`.
+1. Trying to create a tag which exists already should return `Conflict`.
 
 
 
