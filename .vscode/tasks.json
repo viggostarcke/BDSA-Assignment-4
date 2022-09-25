@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/BDSA2020.Assignment04.Tests/BDSA2020.Assignment04.Tests.csproj",
+                "${workspaceFolder}/Assignment/Assignment.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/BDSA2020.Assignment04.Tests/BDSA2020.Assignment04.Tests.csproj",
+                "${workspaceFolder}/Assignment/Assignment.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,9 +32,8 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/BDSA2020.Assignment04.Tests/BDSA2020.Assignment04.Tests.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "--project",
+                "${workspaceFolder}/Assignment/Assignment.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
