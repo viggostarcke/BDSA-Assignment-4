@@ -8,30 +8,48 @@ Fork or clone repository.
 
 [![Simple-kanban-board-](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Simple-kanban-board-.jpg/512px-Simple-kanban-board-.jpg)](https://commons.wikimedia.org/wiki/File:Simple-kanban-board-.jpg "Jeff.lasovski [CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)], via Wikimedia Commons")
 
-Implement and test the `IItemRepository`, `ITagRepository`, and `IUserRepository` interfaces using the rules from *Assignment #3*.
+Implement and test the `IItemRepository`, `ITagRepository`, and `IUserRepository` interfaces using the rules from [Assignment 03](https://github.com/itu-bdsa/assignment-03/blob/main/README.md#business-rules).
 
 You must use an in-memory database and dependency injection for testing.
+
 
 ## Software Engineering
 
 ### Exercise 1
 
-Consider a file system with a graphical user interface, such as Macintosh’s Finder, Microsoft’s Windows Explorer, or Linux’s KDE. The following objects were identified from a use case describing how to copy a file from a floppy disk to a hard disk: File, Icon, TrashCan, Folder, Disk, Pointer. Specify which are entity objects, which are boundary objects, and which are control (interactor) objects.
+Recapitulate the meaning of _encapsulation_, _inheritance_, and _polymorphism_ in object-oriented programming.
+Provide a description of these concepts including UML diagrams to illustrate your descriptions.
 
 ### Exercise 2
 
-Assuming the same file system as before, consider a scenario consisting of selecting a file on a floppy, dragging it to Folder and releasing the mouse. Identify and define one control (interactor) object associated with this scenario.
+Draw a UML class diagram that illustrates your implementation of the entities of last week's C♯ assignment, see <https://github.com/itu-bdsa/assignment-03/blob/main/README.md#kanban-board>.
+The purpose of the diagram should be to _document_ the main relationships between the entities and their multiplicities.
 
 ### Exercise 3
 
-Arrange the objects listed in Exercises SE.1-2 horizontally on a sequence diagram, the boundary objects to the left, then the control (interactor) object you identified, and finally, the entity objects. Draw the sequence of interactions resulting from dropping the file into a folder. For now, ignore the exceptional cases.
+Draw a UML state diagram that illustrates your implementation of the `Task` entity from last week's C♯ assignment, see <https://github.com/itu-bdsa/assignment-03/blob/main/README.md#kanban-board>.
+The purpose of the diagram should be to _document_ the different states of the entity and the events that trigger the state changes.
 
 ### Exercise 4
 
-From the sequence diagram Figure 2-34, draw the corresponding class diagram. Hint: Start with the participating objects in the sequence diagram.
+For each of the five _SOLID_ design principles, provide an example that illustrates the violation of the specific principle.
+Your examples can be given either in code or as UML diagrams.
+Briefly explain under which conditions the respective principle is violated.
+Note, the examples do not need to be sophisticated.
+
+### Exercise 5
+
+For each of the examples of violations of a _SOLID_ design principles in [Exercise 4](./#exercise-4), provide a refactored design that respects the respective design principle.
+Again, the refactored designs can be given either in code or as UML diagrams, briefly explain under which conditions the respective principle is not violated any longer, and remember that the examples do not need to be sophisticated.
+
+---
 
 ## Submitting the assignment
 
-To submit the assignment you need to create a .pdf document using LaTeX containing the answers to the questions and a link to a public repository containing your fork of the completed code.
+To submit the assignment you need to create a PDF document using LaTeX that contains the answers to the questions **and** a link to a public GitHub repository that contains a fork of the assignments repository with the completed code.
 
-Members of the triplets should submit the same PDF file to pass the assignments. Make sure all group names and ID are clearly marked on the front page.
+**Note**: You should not send a PR with your changes.
+
+The PDF file must conform to the following naming convention: `group_<x>_<id1>_<id2>_<id3>_assignment_04.pdf`, where `<x>` is replaced by the number of your group from [README_GROUPS.md](./README_GROUPS.md) and `<id1>`, `<id2>`, and `<id3>` are your respective ITU identifiers. 
+
+You submit via [LearnIT](https://learnit.itu.dk/mod/assign/view.php?id=166021).
