@@ -39,7 +39,7 @@ Note, the examples do not need to be sophisticated.
 
 ### Exercise 5
 
-For each of the examples of violations of a _SOLID_ design principles in [Exercise 4](./#exercise-4), provide a refactored design that respects the respective design principle.
+For each of the examples of violations of _SOLID_ design principles in [Exercise 4](./#exercise-4), provide a refactored design that respects the respective design principle.
 Again, the refactored designs can be given either in code or as UML diagrams, briefly explain under which conditions the respective principle is not violated any longer, and remember that the examples do not need to be sophisticated.
 
 ---
