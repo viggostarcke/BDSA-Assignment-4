@@ -27,7 +27,7 @@ The purpose of the diagram should be to _document_ the main relationships betwee
 
 ### Exercise 3
 
-Draw a UML state diagram that illustrates your implementation of the `Task` entity from last week's C♯ assignment, see <https://github.com/itu-bdsa/assignment-03/blob/main/README.md#kanban-board>.
+Draw a UML state diagram that illustrates your implementation of the `WorkItem` entity from last week's C♯ assignment, see <https://github.com/itu-bdsa/assignment-03/blob/main/README.md#kanban-board>.
 The purpose of the diagram should be to _document_ the different states of the entity and the events that trigger the state changes.
 
 ### Exercise 4
