@@ -68,19 +68,19 @@ public class TagRepository : ITagRepository
         var tagExisting = _context.Tags.FirstOrDefault(c => c.Id == tagId);
         Response response;
 
-        var tags = _context.Tags;
-        tags.Find(tagId);
-        WorkItem workItemInUse = null;
-        foreach (var t in tags) foreach (var workItem in t.WorkItems) if (workItem.Id == tagId) workItemInUse = workItem;
+        var items = _context.Items;
+        items.Find(tagId);
+        Tag tagInUse = null;
+        foreach (var i in items) foreach (var t in i.Tags) if (t.Id == tagId) tagInUse = t;
 
-        if (tagExisting is null)
+        if (tagExisting == null)
             response = Response.NotFound;
-        else if (workItemInUse is null || force)
+        else if (tagInUse == null || force)
         {
             _context.Tags.Remove(tagExisting);
             _context.SaveChanges();
 
-            if (workItemInUse is not null) foreach (var task in _context.Items) task.Tags.Remove(tagExisting);
+            if (tagInUse is not null) foreach (var task in _context.Items) task.Tags.Remove(tagExisting);
 
             response = Response.Deleted;
         }

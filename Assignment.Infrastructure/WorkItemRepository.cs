@@ -121,7 +121,8 @@ public class WorkItemRepository : IWorkItemRepository
         var workItems = from i in _context.Items
                         where i.Tags.Select(t => t.Name).ToString() == tag
                         select new WorkItemDTO  (i.Id, 
-                                                i.Title, i.AssignedTo.Name, 
+                                                i.Title, 
+                                                i.AssignedTo.Name, 
                                                 i.Tags.Select(t => t.Name).ToList().AsReadOnly(), 
                                                 i.State);
 
