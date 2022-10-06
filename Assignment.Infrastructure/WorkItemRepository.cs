@@ -1,3 +1,4 @@
+using System.Collections;
 using Assignment.Core;
 
 namespace Assignment.Infrastructure;
@@ -16,10 +17,13 @@ public class WorkItemRepository : IWorkItemRepository
         var entity = _context.Items.FirstOrDefault(i => i.Id == item.AssignedToId);
         Response response;
 
+        if (item.AssignedToId == null) return (Response.BadRequest, entity.Id);
+
         if (entity == null)
         {
             entity = new WorkItem(item.Title);
-            //we want to set the Created and StateUpdated to now
+            entity.Created = DateTime.UtcNow;
+            entity.StateUpdated = DateTime.UtcNow;
 
             if (item.AssignedToId != null) entity.Id = (int)item.AssignedToId;
             foreach (var t in item.Tags)
@@ -71,51 +75,105 @@ public class WorkItemRepository : IWorkItemRepository
 
     public WorkItemDetailsDTO Find(int itemId)
     {
-        //var item =  from i in _context.Items
-        //            let tags = i.Tags.Select(i => i.Name).ToHashSet()
-        //            where i.Id == itemId
-        //            select new WorkItemDetailsDTO(i.Id, i.Title, i.AssignedTo.De, i.)
-        //same problem more or less, how do I get description (amongst others) here?
+        var item =  from i in _context.Items
+                    let tags = i.Tags.Select(i => i.Name).ToHashSet()
+                    where i.Id == itemId
+                    select new WorkItemDetailsDTO   (i.Id, 
+                                                    i.Title, 
+                                                    i.Description, 
+                                                    i.Created, 
+                                                    i.AssignedTo.Name, 
+                                                    i.Tags.Select(t => t.Name).ToList().AsReadOnly(), 
+                                                    i.State, 
+                                                    i.StateUpdated);
 
 
-        //var entity = _context.Items.FirstOrDefault(i => i.Id == itemId);
-
-        //return new WorkItemDetailsDTO(itemId, entity.Title);
-
-        throw new NotImplementedException();
-
+        return item.FirstOrDefault();
     }
 
     public IReadOnlyCollection<WorkItemDTO> Read()
     {
-        //var workItems = from i in _context.Items
-        //                select new WorkItemDTO(i.Id, i.Title, i.AssignedTo.Name, i.Tags == null ? null : i.AssignedTo.Items, i.State);
-        throw new NotImplementedException();
+        var workItems = from i in _context.Items
+                        select new WorkItemDTO  (i.Id, 
+                                                i.Title, 
+                                                i.AssignedTo.Name, 
+                                                i.Tags.Select(t => t.Name).ToList().AsReadOnly(), 
+                                                i.State);
 
+        return workItems.ToList();
     }
 
     public IReadOnlyCollection<WorkItemDTO> ReadByState(State state)
     {
-        throw new NotImplementedException();
+        var workItems = from i in _context.Items
+                        where i.State == state
+                        select new WorkItemDTO  (i.Id, 
+                                                i.Title, 
+                                                i.AssignedTo.Name, 
+                                                i.Tags.Select(t => t.Name).ToList().AsReadOnly(), 
+                                                i.State);
+
+        return workItems.ToList();
     }
 
     public IReadOnlyCollection<WorkItemDTO> ReadByTag(string tag)
     {
-        throw new NotImplementedException();
+        var workItems = from i in _context.Items
+                        where i.Tags.Select(t => t.Name).ToString() == tag
+                        select new WorkItemDTO  (i.Id, 
+                                                i.Title, i.AssignedTo.Name, 
+                                                i.Tags.Select(t => t.Name).ToList().AsReadOnly(), 
+                                                i.State);
+
+        return workItems.ToList();    
     }
 
     public IReadOnlyCollection<WorkItemDTO> ReadByUser(int userId)
     {
-        throw new NotImplementedException();
+        var workItems = from i in _context.Items
+                        where i.AssignedTo.Id == userId
+                        select new WorkItemDTO  (i.Id, 
+                                                i.Title, 
+                                                i.AssignedTo.Name, 
+                                                i.Tags.Select(t => t.Name).ToList().AsReadOnly(), 
+                                                i.State);
+
+        return workItems.ToList();    
     }
 
     public IReadOnlyCollection<WorkItemDTO> ReadRemoved()
     {
-        throw new NotImplementedException();
+        var workItems = from i in _context.Items
+                        where i.State == State.Removed
+                        select new WorkItemDTO  (i.Id, 
+                                                i.Title, 
+                                                i.AssignedTo.Name, 
+                                                i.Tags.Select(t => t.Name).ToList().AsReadOnly(), 
+                                                i.State);
+
+        return workItems.ToList();
     }
 
     public Response Update(WorkItemUpdateDTO item)
     {
-        throw new NotImplementedException();
+        var entity = _context.Items.FirstOrDefault(c => c.Id == item.Id);
+
+        if (entity == null) return Response.NotFound;
+        else
+        {
+        entity.Title = item.Title;
+        entity.AssignedTo = _context.Users.FirstOrDefault(u => u.Id == item.AssignedToId);
+        entity.Description = item.Description;
+        entity.StateUpdated = DateTime.UtcNow;
+        entity.Tags = new List<Tag>();
+        foreach (var t in item.Tags) 
+        {
+            var tag = _context.Tags.FirstOrDefault(c => c.Name == t);
+            if (tag != null) entity.Tags.Add(tag);
+        }
+
+            _context.SaveChanges();
+            return Response.Updated;
+        }
     }
 }
